@@ -40,7 +40,8 @@ public class TaskData implements Cloneable, java.io.Serializable {
     private long weektime = -1;
     private long monthtime = -1;
     private long yeartime = -1;
-    
+    private long acayeartime = -1;
+
     private Hashtable timePerDay = new Hashtable();    
     
     /** Creates a new instance of TaskData */
@@ -63,6 +64,7 @@ public class TaskData implements Cloneable, java.io.Serializable {
         weektime = -1;
         monthtime = -1;
         yeartime = -1;
+        acayeartime = -1;
         if(timePerDay == null) {
             timePerDay = new Hashtable();
         }
@@ -107,7 +109,14 @@ public class TaskData implements Cloneable, java.io.Serializable {
     	} 
     	return yeartime;
 	}
-    
+
+    public long getAcademicYearTime() {
+        if(acayeartime < 0) {
+            acayeartime = getNDaysTime(getDaysFromAcademicYearStart());
+        }
+        return acayeartime;
+    }
+
     public long getTimePerDay(Date d) {
         Calendar day = getDay(d);
         long value = this.findTimePerDay(day);        
@@ -161,7 +170,17 @@ public class TaskData implements Cloneable, java.io.Serializable {
         c.set(Calendar.MILLISECOND,0);
         return c;
     }
-    
+    private int getDaysFromAcademicYearStart() {
+        Calendar now = Calendar.getInstance();
+        Calendar endOfAcaYear = Calendar.getInstance();
+        endOfAcaYear.set(Calendar.MONTH, Calendar.JULY);
+        endOfAcaYear.set(Calendar.DAY_OF_MONTH, 31);
+        if(now.after(endOfAcaYear)) {
+            return now.get(Calendar.DAY_OF_YEAR)-endOfAcaYear.get(Calendar.DAY_OF_YEAR);
+        } else {
+            return now.get(Calendar.DAY_OF_YEAR)+(365-endOfAcaYear.get(Calendar.DAY_OF_YEAR));
+        }
+    }
     private void incrementTimePerDay(long t) {        
         Long time = null;
         String key = getTimePerDayKey(getToday());
@@ -176,7 +195,8 @@ public class TaskData implements Cloneable, java.io.Serializable {
         timetoday += t;
         weektime += t;
         monthtime += t;
-        yeartime += t;      
+        yeartime += t;
+        acayeartime += t;
     }
     
     void decreaseTimePerDay(Date day, long t) {
@@ -194,6 +214,7 @@ public class TaskData implements Cloneable, java.io.Serializable {
     	    weektime = -1;
     	    monthtime = -1;
     	    yeartime = -1;
+            acayeartime = -1;
     	}
     }
     public void resetSessionTime() {

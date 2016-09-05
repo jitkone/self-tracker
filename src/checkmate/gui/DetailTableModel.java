@@ -230,7 +230,7 @@ public class DetailTableModel extends AbstractTableModel {
         if(col == SESSION_COL) return "Session";
         if(col == WEEK_COL) return "Week";
         if(col == MONTH_COL) return "Month";
-        if(col == YEAR_COL) return "Year";
+        if(col == YEAR_COL) return "Aca. Year";
         return "null";
     }
     public Class getColumnClass(int c) {        

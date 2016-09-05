@@ -17,7 +17,7 @@ public class TSLTracker extends javax.swing.JFrame implements TaskListener, Reco
 	private static final long serialVersionUID = 1L;
 	
 	private static final String application_title = "TSL Tracker";
-	private static final String version = "2.3.1.1";
+	private static final String version = "2.3.2";
     
     private Recorder recorder = null;
     private JMenuItem addTaskMenuItem = null;

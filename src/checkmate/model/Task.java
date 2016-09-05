@@ -93,7 +93,8 @@ public class Task extends EffortCollection implements Comparable {
     }
     
     public long getYearTime() {
-        return data.getYearTime();
+        //return data.getYearTime();
+        return data.getAcademicYearTime();
     }
     
     public TaskData getData() {
